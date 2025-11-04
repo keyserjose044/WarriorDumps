@@ -1,0 +1,15 @@
+{
+  "name": "jomaconcrete",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.10.1",
+    "@astrojs/sitemap": "^3.4.1"
+  }
+}

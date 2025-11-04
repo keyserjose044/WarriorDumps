@@ -1,0 +1,90 @@
+---
+import Header from '../components/Header.astro';
+
+const {
+  title = 'Joma Concrete | Concrete Contractor in Dallas–Fort Worth, TX',
+  description = 'Professional concrete work in DFW — driveways, slabs, patios, ramps, and more. Call (214) 298-6681 for a free estimate.',
+  canonical,
+  image = '/images/og-image.jpg',
+  noIndex = false
+} = Astro.props;
+
+// Build canonical and OG image URLs
+const site = 'https://www.jomaconcrete.com';
+const path = Astro.url?.pathname ?? '/';
+const canonicalUrl = canonical ?? (site.replace(/\/$/, '') + path);
+const ogImage = image?.startsWith('http') ? image : `${site}${image}`;
+---
+
+<html lang="en">
+  <head>
+    <!-- ===== META & SEO ===== -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="theme-color" content="#111827" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- ===== OG / SOCIAL ===== -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- ===== STRUCTURED DATA ===== -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Joma Concrete",
+        "url": site,
+        "telephone": "+12142986681",
+        "areaServed": "Dallas–Fort Worth, TX",
+        "image": ogImage,
+        "priceRange": "$$"
+      })}
+    </script>
+
+    <!-- Page-level slot for additional head tags -->
+    <slot name="head" />
+  </head>
+
+  <body style="margin:0; background:#fff; color:#0f172a; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+    <!-- ===== HEADER BAR (small + mobile dropdown) ===== -->
+    <Header />
+
+    <!-- ===== PAGE CONTENT ===== -->
+    <main style="max-width:1100px; margin:0 auto; padding:24px 16px;">
+      <slot />
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="border-top:1px solid #e5e7eb; margin-top:48px;">
+      <div style="max-width:1100px; margin:0 auto; padding:24px 16px;
+                  display:flex; flex-wrap:wrap; gap:12px;
+                  justify-content:space-between; align-items:center;">
+        <span>© {new Date().getFullYear()} Joma Concrete — DFW, Texas</span>
+
+        <div style="display:flex; gap:16px; align-items:center;">
+          <a href="tel:12142986681"
+             style="font-weight:600; text-decoration:none; color:#111827;">
+            (214) 298-6681
+          </a>
+          <a href="mailto:josemarquez044@gmail.com"
+             style="text-decoration:none; color:#111827;">
+            Email
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
