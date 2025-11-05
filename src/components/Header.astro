@@ -1,16 +1,25 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_PHONE } from '../consts';
+
 const rawBase = import.meta.env.BASE_URL || '/';
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const link = (p: string = '') => `${base}${p}`;
+
 const normalize = (s: string = '/'): string => {
-  let out = (s || '/').replace(/^https?:\/\/[^/]+/, '').replace(/\/index\.html?$/i, '');
+  let out = (s || '/')
+    .replace(/^https?:\/\/[^/]+/, '')
+    .replace(/\/index\.html?$/i, '');
   if (out !== '/' && !out.endsWith('/')) out += '/';
   out = out.replace(/\/+$/, '/');
   return out || '/';
 };
+
 const current = normalize(Astro.url.pathname);
 const isActive = (href: string = '/'): boolean => normalize(href) === current;
+
+// Build tel: link from SITE_PHONE, e.g. "(469) 597-5928" → "tel:14695975928"
+const phoneDigits = SITE_PHONE.replace(/\D/g, '');
+const phoneHref = `tel:1${phoneDigits}`;
 ---
 
 <header class="site-header">
@@ -23,7 +32,9 @@ const isActive = (href: string = '/'): boolean => normalize(href) === current;
       <a href={link('gallery/')} class={isActive('/gallery/') ? 'active' : ''}>Gallery</a>
       <a href={link('contact/')} class={isActive('/contact/') ? 'active' : ''}>Contact</a>
     </div>
-    <div class="contact-button"><a href="tel:12142986681">(214) 298-6681</a></div>
+    <div class="contact-button">
+      <a href={phoneHref}>{SITE_PHONE}</a>
+    </div>
   </nav>
 
   <!-- ===== Mobile ===== -->
@@ -36,28 +47,139 @@ const isActive = (href: string = '/'): boolean => normalize(href) === current;
         <a href={link('about/')} class={isActive('/about/') ? 'active' : ''}>About</a>
         <a href={link('gallery/')} class={isActive('/gallery/') ? 'active' : ''}>Gallery</a>
         <a href={link('contact/')} class={isActive('/contact/') ? 'active' : ''}>Contact</a>
-        <a class="contact-btn" href="tel:12142986681">Call (214) 298-6681</a>
+        <a class="contact-btn" href={phoneHref}>Call {SITE_PHONE}</a>
       </div>
     </details>
   </nav>
 </header>
 
 <style>
-  .site-header{margin:0;padding:0 1rem;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05);position:sticky;top:0;z-index:50;}
-  .desktop-nav{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
-  .brand{margin:0;font-size:1.1rem;}
-  .brand a{text-decoration:none;color:#0f172a;font-weight:800;}
-  .internal-links{display:flex;gap:.75rem;}
-  .internal-links a{padding:1rem .5rem;text-decoration:none;color:#0f172a;border-bottom:3px solid transparent;font-weight:600;}
-  .internal-links a.active{border-bottom-color:#2337ff;}
-  .contact-button a,.contact-btn{background:transparent;color:#2563eb;border:2px solid #2563eb;padding:.5rem 1.1rem;border-radius:9999px;font-weight:600;text-decoration:none;transition:all .25s;white-space:nowrap;}
-  .contact-button a:hover,.contact-btn:hover{background:#2563eb;color:#fff;}
-  .mobile-nav{display:none;align-items:center;justify-content:space-between;gap:.5rem;position:relative;}
-  .nav-toggle>summary{display:inline-block;border:1px solid rgba(0,0,0,.12);background:#fff;border-radius:.6rem;padding:.45rem .65rem;font-size:1.15rem;line-height:1;cursor:pointer;list-style:none;user-select:none;}
-  .nav-toggle>summary::-webkit-details-marker{display:none;}
-  .menu-panel{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid rgba(0,0,0,.06);box-shadow:0 8px 24px rgba(0,0,0,.06);display:none;flex-direction:column;padding:.25rem 0;z-index:40;}
-  .nav-toggle[open] .menu-panel{display:flex;}
-  .menu-panel a{padding:.9rem 1rem;text-decoration:none;color:#0f172a;border-bottom:1px solid rgba(0,0,0,.04);}
-  .menu-panel a.active{background:#f5f7fb;font-weight:700;border-left:4px solid #2337ff;}
-  @media (max-width:900px){.desktop-nav{display:none;}.mobile-nav{display:flex;}}
+  .site-header {
+    margin: 0;
+    padding: 0 1rem;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+  }
+
+  .brand {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .brand a {
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 800;
+  }
+
+  .internal-links {
+    display: flex;
+    gap: .75rem;
+  }
+
+  .internal-links a {
+    padding: 1rem .5rem;
+    text-decoration: none;
+    color: #0f172a;
+    border-bottom: 3px solid transparent;
+    font-weight: 600;
+  }
+
+  .internal-links a.active {
+    border-bottom-color: #2337ff;
+  }
+
+  .contact-button a,
+  .contact-btn {
+    background: transparent;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    padding: .5rem 1.1rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .25s;
+    white-space: nowrap;
+  }
+
+  .contact-button a:hover,
+  .contact-btn:hover {
+    background: #2563eb;
+    color: #fff;
+  }
+
+  .mobile-nav {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    position: relative;
+  }
+
+  .nav-toggle > summary {
+    display: inline-block;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    border-radius: .6rem;
+    padding: .45rem .65rem;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .nav-toggle > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border-top: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    display: none;
+    flex-direction: column;
+    padding: .25rem 0;
+    z-index: 40;
+  }
+
+  .nav-toggle[open] .menu-panel {
+    display: flex;
+  }
+
+  .menu-panel a {
+    padding: .9rem 1rem;
+    text-decoration: none;
+    color: #0f172a;
+    border-bottom: 1px solid rgba(0,0,0,.04);
+  }
+
+  .menu-panel a.active {
+    background: #f5f7fb;
+    font-weight: 700;
+    border-left: 4px solid #2337ff;
+  }
+
+  @media (max-width: 900px) {
+    .desktop-nav {
+      display: none;
+    }
+    .mobile-nav {
+      display: flex;
+    }
+  }
 </style>
