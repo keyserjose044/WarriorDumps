@@ -4,17 +4,23 @@ const today = new Date();
 
 <footer>
   <div class="footer-links">
-    <p>Contact: <a href="mailto:smartstuffstays@gmail.com">lifeloggerz.official@gmail.com</a></p>
+    <p>
+      Contact:
+      <a href="mailto:warriordumps@gmail.com">warriordumps@gmail.com</a>
+      &nbsp;|&nbsp;
+      <a href="tel:14695975928">(469) 597-5928</a>
+    </p>
   </div>
-  <p class="copyright">&copy; {today.getFullYear()} LifeLoggerz. All rights reserved.</p>
+  <p class="copyright">&copy; {today.getFullYear()} Warrior Dumps. All rights reserved.</p>
 </footer>
 
 <style>
   footer {
     padding: 2em 1em 6em;
-    background: linear-gradient(var(--gray-gradient)) no-repeat;
-    color: rgb(var(--gray));
+    background: #f8f9fb;
+    color: #1c1f26;
     text-align: center;
+    border-top: 1px solid #e4e6ea;
   }
 
   .footer-links {
@@ -22,13 +28,13 @@ const today = new Date();
   }
 
   .footer-links a {
-    color: rgb(var(--gray));
+    color: #1c1f26;
     text-decoration: underline;
     font-weight: 500;
   }
 
   .footer-links a:hover {
-    color: rgb(var(--gray-dark));
+    color: var(--accent, #c93f1d);
   }
 
   .copyright {
