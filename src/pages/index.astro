@@ -1,13 +1,25 @@
 ---
 /* src/pages/index.astro */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_PHONE,
+  SITE_EMAIL,
+} from '../consts';
 
-const hero = '/images/hero.jpg';
+const hero = '/images/hero.jpg'; // replace this image with a Warrior Dumps hero photo
+
+// Turn "(469) 597-5928" into "tel:14695975928"
+const phoneDigits = SITE_PHONE.replace(/\D/g, '');
+const phoneHref = `tel:1${phoneDigits}`;
+const mailHref = `mailto:${SITE_EMAIL}`;
 ---
 
 <BaseLayout
-  title="JOMA Concrete LLC | Reliable Concrete Contractor in DFW"
-  description="Professional concrete work across Dallas–Fort Worth — driveways, slabs, patios, ramps, and more. Family-run, 30+ years experience."
+  title={`${SITE_TITLE} | Affordable Dumpster Rental & Junk Removal in DFW`}
+  description={SITE_DESCRIPTION}
   image={hero}
 >
   <!-- Preload hero for faster LCP -->
@@ -16,68 +28,75 @@ const hero = '/images/hero.jpg';
   </Fragment>
 
   <!-- ===== HERO ===== -->
-  <section class="hero" aria-label="Joma Concrete — recent project">
+  <section class="hero" aria-label="Warrior Dumps — dumpster rental in DFW">
     <img class="hero-bg" src={hero} alt="" decoding="async" loading="eager" />
     <div class="hero-inner">
-      <h1>Experienced Concrete Expert</h1>
+      <h1>Affordable Dumpster Rentals in DFW</h1>
       <p class="lede">
-        Providing top-quality commercial and residential concrete work
-        across the Dallas–Fort Worth area and beyond.
+        Fast, hassle-free dumpster rental and junk removal for homes, contractors,
+        and businesses across the Dallas–Fort Worth area.
       </p>
 
       <div class="cta-row">
-        <span class="btn btn-badge">Bonded &amp; Insured</span>
-        <a class="btn btn-primary" href="#contact">Request a Free Estimate</a>
-        <a class="btn btn-outline" href="tel:12142986681">Call (214) 298-6681</a>
+        <span class="btn btn-badge">Locally Owned &amp; Insured</span>
+        <a class="btn btn-primary" href="#contact">Book a Dumpster</a>
+        <a class="btn btn-outline" href={phoneHref}>Call {SITE_PHONE}</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== ABOUT ===== -->
+  <!-- ===== ABOUT / WHAT WE DO ===== -->
   <section id="about" class="content">
-    <h2>Who We Are</h2>
+    <h2>About {SITE_NAME}</h2>
     <p>
-      Founded in 2019 by <strong>Jose Marquez</strong>, a construction
-      foreman with <strong>30+ years of experience</strong> in
-      commercial concrete work, <strong>JOMA Concrete</strong> is a
-      trusted, family-run construction company serving the Dallas–Fort
-      Worth area and nearby cities.
+      <strong>{SITE_NAME}</strong> is a local dumpster rental and junk removal
+      service based in the Dallas–Fort Worth area. Whether you are cleaning out
+      a garage, remodeling a house, or running a jobsite, we make it easy to get
+      a dumpster delivered on time and picked up when you’re done.
     </p>
 
     <div class="grid">
       <div>
         <h3>What We Do</h3>
         <ul>
-          <li>Driveways &amp; sidewalks</li>
-          <li>Slabs &amp; foundations</li>
-          <li>Ramps &amp; curb ramps (ADA / TAS aware)</li>
-          <li>Patios &amp; walkways</li>
-          <li>Repairs &amp; replacements</li>
-          <li>Commercial flatwork</li>
+          <li>Roll-off dumpster rentals for homes &amp; businesses</li>
+          <li>Residential cleanouts (garages, attics, rentals)</li>
+          <li>Construction &amp; demolition debris</li>
+          <li>Roofing, yard waste, and bulky items</li>
+          <li>Short-term and long-term rentals</li>
+          <li>Driveway-friendly placement (where possible)</li>
         </ul>
       </div>
       <div>
-        <h3>Why Choose Us</h3>
+        <h3>Why Choose Warrior Dumps</h3>
         <ul>
-          <li>30+ years experience</li>
-          <li>Family-run &amp; local</li>
-          <li>Licensed &amp; insured</li>
-          <li>Clean job sites &amp; on-time delivery</li>
-          <li>ADA / TAS-compliant ramp work</li>
+          <li>Fast delivery &amp; flexible pickup</li>
+          <li>Upfront, transparent pricing</li>
+          <li>Clean, well-maintained dumpsters</li>
+          <li>Local, responsive customer service</li>
+          <li>Serving Dallas–Fort Worth and nearby cities</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ===== GALLERY TEASER ===== -->
+  <!-- ===== GALLERY TEASER (replace images later) ===== -->
   <section id="gallery" class="pair">
     <figure>
-      <img src="/images/2ndchancejob.png" alt="ADA handicap ramps at 2nd Chance Baptist Church" loading="lazy" />
-      <figcaption>ADA handicap ramps at 2nd Chance Baptist Church</figcaption>
+      <img
+        src="/images/dumpster-residential.png"
+        alt="Roll-off dumpster placed in a residential driveway"
+        loading="lazy"
+      />
+      <figcaption>Driveway-friendly dumpster for a home cleanout in DFW</figcaption>
     </figure>
     <figure>
-      <img src="/images/retainingwallbtc.png" alt="8 ft retaining wall and pillars at Big Town Concrete Plant" loading="lazy" />
-      <figcaption>8 ft retaining wall and pillars at Big Town Concrete Plant</figcaption>
+      <img
+        src="/images/dumpster-construction.png"
+        alt="Roll-off dumpster at a construction site"
+        loading="lazy"
+      />
+      <figcaption>Roll-off dumpster supporting a construction and remodel project</figcaption>
     </figure>
   </section>
 
@@ -85,13 +104,14 @@ const hero = '/images/hero.jpg';
   <section id="contact" class="content">
     <h2>Contact Us</h2>
     <p>
-      Ready to start your project? Call us directly or send a message to get a free estimate.
+      Need a dumpster or junk removal in DFW? Call us or send a message to check
+      availability and get a quick quote.
     </p>
     <div class="contact-grid">
-      <p><strong>Owner:</strong> Jose Marquez</p>
-      <p><a href="tel:12142986681">(214) 298-6681</a></p>
-      <p><a href="mailto:josemarquez044@gmail.com">josemarquez044@gmail.com</a></p>
-      <a class="btn btn-primary" href="tel:12142986681">📞 Call Now</a>
+      <p><strong>Company:</strong> {SITE_NAME}</p>
+      <p><a href={phoneHref}>{SITE_PHONE}</a></p>
+      <p><a href={mailHref}>{SITE_EMAIL}</a></p>
+      <a class="btn btn-primary" href={phoneHref}>📞 Call Now</a>
     </div>
   </section>
 
@@ -171,7 +191,11 @@ const hero = '/images/hero.jpg';
       border-radius: 10px;
       font-weight: 600;
       text-decoration: none;
-      transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+      transition:
+        background .15s ease,
+        color .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease;
     }
 
     /* Badge (non-clickable) */
