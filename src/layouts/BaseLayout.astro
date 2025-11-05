@@ -2,15 +2,15 @@
 import Header from '../components/Header.astro';
 
 const {
-  title = 'Joma Concrete | Concrete Contractor in Dallas–Fort Worth, TX',
-  description = 'Professional concrete work in DFW — driveways, slabs, patios, ramps, and more. Call (214) 298-6681 for a free estimate.',
+  title = 'Warrior Dumps | Dumpster Rental & Junk Removal in Dallas–Fort Worth, TX',
+  description = 'Affordable junk removal and dumpster rentals across DFW. Fast delivery, local service, and transparent pricing. Call (469) 597-5928 for a quick quote!',
   canonical,
-  image = '/images/og-image.jpg',
+  image = '/images/warrior.png',
   noIndex = false
 } = Astro.props;
 
 // Build canonical and OG image URLs
-const site = 'https://www.jomaconcrete.com';
+const site = 'https://www.warriordumps.com';
 const path = Astro.url?.pathname ?? '/';
 const canonicalUrl = canonical ?? (site.replace(/\/$/, '') + path);
 const ogImage = image?.startsWith('http') ? image : `${site}${image}`;
@@ -45,12 +45,14 @@ const ogImage = image?.startsWith('http') ? image : `${site}${image}`;
       {JSON.stringify({
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "Joma Concrete",
+        "name": "Warrior Dumps",
         "url": site,
-        "telephone": "+12142986681",
+        "telephone": "+14695975928",
         "areaServed": "Dallas–Fort Worth, TX",
         "image": ogImage,
-        "priceRange": "$$"
+        "priceRange": "$$",
+        "description": "Affordable dumpster rental and junk removal in the DFW area.",
+        "email": "warriordumps@gmail.com"
       })}
     </script>
 
@@ -59,7 +61,7 @@ const ogImage = image?.startsWith('http') ? image : `${site}${image}`;
   </head>
 
   <body style="margin:0; background:#fff; color:#0f172a; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
-    <!-- ===== HEADER BAR (small + mobile dropdown) ===== -->
+    <!-- ===== HEADER BAR ===== -->
     <Header />
 
     <!-- ===== PAGE CONTENT ===== -->
@@ -72,14 +74,14 @@ const ogImage = image?.startsWith('http') ? image : `${site}${image}`;
       <div style="max-width:1100px; margin:0 auto; padding:24px 16px;
                   display:flex; flex-wrap:wrap; gap:12px;
                   justify-content:space-between; align-items:center;">
-        <span>© {new Date().getFullYear()} Joma Concrete — DFW, Texas</span>
+        <span>© {new Date().getFullYear()} Warrior Dumps — DFW, Texas</span>
 
         <div style="display:flex; gap:16px; align-items:center;">
-          <a href="tel:12142986681"
+          <a href="tel:14695975928"
              style="font-weight:600; text-decoration:none; color:#111827;">
-            (214) 298-6681
+            (469) 597-5928
           </a>
-          <a href="mailto:josemarquez044@gmail.com"
+          <a href="mailto:warriordumps@gmail.com"
              style="text-decoration:none; color:#111827;">
             Email
           </a>
