@@ -330,6 +330,15 @@ const mailHref = `mailto:${SITE_EMAIL}`;
       .pair {
         grid-template-columns: 1fr;
       }
+
+    /* Mobile tweak for Call Now button */
+    @media (max-width: 480px) {
+      .btn-wide {
+        width: 90%;          /* shrink button width */
+        max-width: 360px;    /* prevent edge overflow */
+      }
+    }
+
     }
   </style>
 </BaseLayout>
