@@ -338,6 +338,34 @@ const mailHref = `mailto:${SITE_EMAIL}`;
         max-width: 360px;    /* prevent edge overflow */
       }
     }
+    
+    @media (max-width: 850px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .pair {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Mobile tweak for Call Now button */
+    @media (max-width: 480px) {
+      .btn-wide {
+        width: 90%;          /* shrink button width */
+        max-width: 360px;    /* prevent edge overflow */
+      }
+    }
+    
+    /* Center text on mobile for 'about' section */
+    @media (max-width: 850px) {
+      #about {
+        text-align: center;
+      }
+      #about ul {
+        text-align: left;   /* keep bullet lists readable */
+        display: inline-block;
+      }
+    }
 
     }
   </style>
